@@ -2,15 +2,15 @@ FROM ubuntu:bionic
 
 VOLUME /data
 
-ENV PYLINT_VERSION=1.8.3-1
+ENV PYLINT_VERSION=1.8.3
 
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-ADD ./resources /resources
-
-RUN /resources/build && rm -rf /resources
+RUN apt-get update && apt-get install -y python python-pip python-dev build-essential
+RUN pip install pylint==${PYLINT_VERSION}
+RUN apt-get purge -y python-dev build-essential && apt-get -y autoremove && apt-get clean && rm -rf /tmp/*
 
 WORKDIR /data
 
