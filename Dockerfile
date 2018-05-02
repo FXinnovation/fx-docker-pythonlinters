@@ -8,9 +8,9 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-RUN apt-get update && apt-get install -y python python-pip python-dev build-essential
-RUN pip install pylint==${PYLINT_VERSION}
-RUN apt-get purge -y python-dev build-essential && apt-get -y autoremove && apt-get clean && rm -rf /tmp/*
+ADD ./resources /resources
+
+RUN /resources/build && rm -rf /resources
 
 WORKDIR /data
 

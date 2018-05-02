@@ -1,0 +1,11 @@
+#!/bin/bash
+
+apt-get update
+apt-get install -y python python-pip python-dev build-essential
+
+pip install pylint==${PYLINT_VERSION}
+
+apt-get purge -y python-dev build-essential
+apt-get -y autoremove
+apt-get clean
+rm -rf /tmp/*
