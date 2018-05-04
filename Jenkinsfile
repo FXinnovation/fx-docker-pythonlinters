@@ -4,7 +4,7 @@ node {
   notify=false
   message="No special message"
   try {
-    dockerhub_repo = 'fxinnovation/pylint'
+    dockerhub_repo = 'fxinnovation/pythonlinters'
     ansiColor('xterm') {
       stage('checkout') {
         // Checking out scm
@@ -41,6 +41,7 @@ node {
       stage("test") {
         // Testing Image Works
         sh "docker run ${dockerhub_repo}:${tag_id} pylint --version"
+        sh "docker run ${dockerhub_repo}:${tag_id} mypy --version"
         sh "docker inspect ${dockerhub_repo}:${tag_id}"
         message = "Docker build is successfull"
       }

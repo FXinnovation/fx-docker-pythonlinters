@@ -1,11 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-apt-get update
-apt-get install -y python python-pip python-dev build-essential
+set -e -x
 
-pip install pylint==${PYLINT_VERSION}
+apk update
 
-apt-get purge -y python-dev build-essential
-apt-get -y autoremove
-apt-get clean
-rm -rf /tmp/*
+apk add --no-cache python3=${PYTHON3_VERSION}
+apk add --no-cache py-pip make g++ python3-dev
+
+python3 -m pip install --no-cache-dir --upgrade pip
+python3 -m pip install --no-cache-dir pylint==${PYLINT_VERSION}
+python3 -m pip install --no-cache-dir mypy==${MYPY_VERSION}
+
+python3 -m pip uninstall -y pip
+find /usr/lib/ -type d -name __pycache__ -exec rm -r {} \+
+apk del py-pip make g++ python3-dev
