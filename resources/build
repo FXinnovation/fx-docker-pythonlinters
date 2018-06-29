@@ -10,6 +10,7 @@ apk add --no-cache py-pip make g++ python3-dev
 python3 -m pip install --no-cache-dir --upgrade pip
 python3 -m pip install --no-cache-dir pylint==${PYLINT_VERSION}
 python3 -m pip install --no-cache-dir mypy==${MYPY_VERSION}
+python3 -m pip install --no-cache-dir troposphere
 
 python3 -m pip uninstall -y pip
 find /usr/lib/ -type d -name __pycache__ -exec rm -r {} \+
